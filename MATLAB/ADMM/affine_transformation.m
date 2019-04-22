@@ -37,15 +37,12 @@ b12 = squeeze(B_K(1,2,:));
 b21 = squeeze(B_K(2,1,:)); 
 b22 = squeeze(B_K(2,2,:));
 
-% determinant.
-det = b11.*b22 - b12.*b21;
-
 %inverse of B_K^\top
 B_K_invT = B_K;
-B_K_invT(1,1,:) = b22./det;
-B_K_invT(2,2,:) = b11./det;
-B_K_invT(1,2,:) = - b21./det;
-B_K_invT(2,1,:) = - b12./det;
+B_K_invT(1,1,:) = b22./detB_K;
+B_K_invT(2,2,:) = b11./detB_K;
+B_K_invT(1,2,:) = - b21./detB_K;
+B_K_invT(2,1,:) = - b12./detB_K;
 
 end
 
