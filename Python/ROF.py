@@ -15,7 +15,8 @@ class Interior(SubDomain):
     def inside(self, x, on_boundary):
         return not on_boundary
 
-file1 = XDMFFile('u.xdmf')
+#file1 = XDMFFile('u.xdmf')
+file1 = File("u.pvd")
 file2 = XDMFFile('d.xdmf')
 file3 = XDMFFile('lamb.xdmf')
 
@@ -96,18 +97,18 @@ file2.write(image_noisy_function)
 # Define variational problem
 u = TrialFunction(DG)
 v = TestFunction(DG)
-#u_old = interpolate(image_noisy_function,DG)
-u_old = interpolate(Constant(0.0),DG)
+u_old = interpolate(image_noisy_function,DG)
+#u_old = interpolate(Constant(0.0),DG)
 d = Function(W)
 lamb = Function(W)
 
 
 mu = 1.0
 gamma = 7.0
-beta = 1.0
+beta = 1.e-5
 tol = 1e-14
 dist = 1.0
-it = 3
+it = 300
 k=0
 distv = []
 errv = []
@@ -118,9 +119,10 @@ n = FacetNormal(mesh)
 #Define linear variational problem
 a_1 = u*v*dx
 #a_2 = inner(grad(u),grad(v))*dx - dot(avg(grad(v)), jump(u, n))*dS + dot(jump(v, n), avg(grad(u)))*dS - dot(grad(v), u*n)*ds + dot(v*n, grad(u))*ds
-a_2 = inner(grad(u),grad(v))*dx - dot(avg(grad(v)), jump(u, n))*dS - dot(jump(v, n), avg(grad(u)))*dS - dot(grad(v), u*n)*ds - dot(v*n, grad(u))*ds
+#a_2 = inner(grad(u),grad(v))*dx - dot(avg(grad(v)), jump(u, n))*dS - dot(jump(v, n), avg(grad(u)))*dS - dot(grad(v), u*n)*ds - dot(v*n, grad(u))*ds
+a_2 = jump(u)*jump(v)*dS
 a = mu*a_1 + gamma*a_2
-L = mu*image_noisy_function*v*dx + inner(jump(v,n), avg(gamma*d*n+lamb*n))*dS + inner(jump(gamma*d+lamb,n), avg(v*n))*dS
+L = mu*image_noisy_function*v*dx + inner(jump(v), gamma*avg(d+lamb))*dS# + inner(gamma*d+lamb, avg(v))*dS
 
 
 u = Function(DG)
@@ -151,7 +153,11 @@ while (dist > tol and k<it):
 
     #update and save data
     u_old.assign(u)
-    file1.write(u, float(k))
+    #file1.write(u, float(k))
+
+    u.rename("u", "u")
+    file1 << u,k-1
+    
     distv.append(dist)
 
 
