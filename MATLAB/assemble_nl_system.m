@@ -1,4 +1,4 @@
-function [G,rhs] = assemble_nl_system(mesh, d,eps1)
+function [G,rhs] = assemble_nl_system(mesh,d,eps1)
 %ASSEMBLE_NL_SYSTEM
 %   Assembles the jacobi matrix for the total variation term of the regularized
 %   total variation problem
@@ -9,7 +9,7 @@ function [G,rhs] = assemble_nl_system(mesh, d,eps1)
 %            eps1      -        regularization parameter
 %
 %   OUTPUT:  G         -        jacobi matrix of the total variation term
-%            rhs       -        total variation evaluated at previous iterate
+%            rhs       -        total variation evaluated at d_h = sum_i d_i*phi_i
 
 
 dim      = mesh.dim;           % the dimension of the problem

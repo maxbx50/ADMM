@@ -16,18 +16,17 @@ function [val,nb] = basis_dg0(p)
 
 % number of points for the basis functions to be evaluated at
 dim = size(p,2);
-
-nb = 2;
+nb = dim;
 
 % initialize val tensor
 M = size(p,1);
-val  = zeros( M , 2, nb );
+val  = zeros(M,dim,nb);
 one = ones(M,1);          
 zero = zeros(M,1);
 
 % calculate values
 val(:,:,1) = [ one  zero ];
-val(:,:,2) = [  zero   one ];
+val(:,:,2) = [ zero  one ];
 
 
 end

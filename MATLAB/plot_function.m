@@ -14,6 +14,8 @@ u_h = reshape(u_h,N+1,N+1);
 
 surf(xx,yy,u_h);
 colormap winter
+%colormap jet
+%shading interp
 xlabel('x');
 ylabel('y');
 

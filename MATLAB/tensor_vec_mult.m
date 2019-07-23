@@ -5,7 +5,7 @@ function out = tensor_vec_mult(T,rhs)
 % INPUT:   T         -         Tensor of dimension [nx,ny,nz]        
 %          rhs       -         right hand side of dimension [ny,1]
 %
-% OUTPUT   out       -         matrix vector product
+% OUTPUT:  out       -         matrix vector product
 
 [nx,ny,nz] = size(T);
 

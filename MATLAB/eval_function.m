@@ -20,7 +20,7 @@ switch function_type
             val = basis_P1(P);
     
             for i = 1:size(P,1)
-             out(:,:,i) = u_t(:,1).*val(i,:,1) + u_t(:,2).*val(i,:,2) + u_t(:,3).*val(i,:,3);
+             out(:,:,i) = u_coeff_local(:,1).*val(i,:,1) + u_coeff_local(:,2).*val(i,:,2) + u_coeff_local(:,3).*val(i,:,3);
             end
             
         
@@ -47,7 +47,6 @@ switch function_type
         
             out = out';
            
-    %case('Nedelec_curl')
     otherwise
         error('Unsupported function type.');
         

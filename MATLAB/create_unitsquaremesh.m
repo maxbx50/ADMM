@@ -6,6 +6,8 @@ function[mesh] = create_unitsquaremesh(N)
 %
 %   INPUT:     N     -     number of cells in x and y direction
 %
+%   OUTPUT:   mesh   -     mesh as a structure
+%
 %   Example for N=2
 %
 %   mesh.coordinates = [0 0.5 1 1 0.5 0 0 0.5 1; 0 0 0 0.5 0.5 0.5 1 1 1];
